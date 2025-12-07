@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Separator } from './ui/separator';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Separator } from '../ui/separator';
 import { 
   Facebook, 
   Twitter, 
@@ -16,7 +15,6 @@ import {
   CheckCircle,
   AlertCircle
 } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -158,17 +156,8 @@ export function Footer() {
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center mr-3">
-                  <span className="text-white font-bold text-lg">
-                      {/* Logo 
-                        i want to fully cover the div with the logo
-                      */}
-                      <img 
-                        src="/UniInOneLogo.jpg" 
-                        alt="UniInOne Logo" 
-                        className="w-11 h-11 mr-3 rounded-full object-cover object-center"
-                      />
-                  </span>
+                <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-emerald-500 rounded-lg flex items-center justify-center mr-3">
+                  <span className="text-white font-bold text-lg">U</span>
                 </div>
                 <span className="text-xl font-bold">UniInOne</span>
               </div>
@@ -249,14 +238,14 @@ export function Footer() {
               <ul className="space-y-2">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
-                    <Link 
-                      to={link.href} 
+                    <a 
+                      href={link.href} 
                       onClick={scrollToTop}
                       className="text-gray-300 hover:text-white transition-colors text-sm"
                       style={{ cursor: 'pointer' }}
                     >
                       {link.label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -268,14 +257,14 @@ export function Footer() {
               <ul className="space-y-2">
                 {resources.map((resource, index) => (
                   <li key={index}>
-                    <Link 
-                      to={resource.href} 
+                    <a 
+                      href={resource.href} 
                       onClick={scrollToTop}
                       className="text-gray-300 hover:text-white transition-colors text-sm"
                       style={{ cursor: 'pointer' }}
                     >
                       {resource.label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -287,14 +276,14 @@ export function Footer() {
               <ul className="space-y-2">
                 {support.map((item, index) => (
                   <li key={index}>
-                    <Link 
-                      to={item.href} 
+                    <a 
+                      href={item.href} 
                       onClick={scrollToTop}
                       className="text-gray-300 hover:text-white transition-colors text-sm"
                       style={{ cursor: 'pointer' }}
                     >
                       {item.label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -320,15 +309,15 @@ export function Footer() {
               </div>
               
               <div className="flex space-x-4 text-sm">
-                <Link to="/about" onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors" style={{ cursor: 'pointer' }}>
+                <a href="/about" onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors" style={{ cursor: 'pointer' }}>
                   Privacy Policy
-                </Link>
-                <Link to="/about" onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors" style={{ cursor: 'pointer' }}>
+                </a>
+                <a href="/about" onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors" style={{ cursor: 'pointer' }}>
                   Terms of Service
-                </Link>
-                <Link to="/about" onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors" style={{ cursor: 'pointer' }}>
+                </a>
+                <a href="/about" onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors" style={{ cursor: 'pointer' }}>
                   Cookie Policy
-                </Link>
+                </a>
               </div>
             </div>
           </div>

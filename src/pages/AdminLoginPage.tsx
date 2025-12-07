@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Card } from './ui/card';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import { Card } from '../components/ui/card';
 import { Shield, Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
-import { Alert, AlertDescription } from './ui/alert';
-import { useAuth } from '../context/AuthContext';
+import { Alert, AlertDescription } from '../components/ui/alert';
 
-export function AdminLoginPage() {
-  const navigate = useNavigate();
-  const { adminLogin } = useAuth();
+interface AdminLoginPageProps {
+  onAdminLogin: (email: string) => void;
+  onPageChange: (page: string) => void;
+}
+
+export function AdminLoginPage({ onAdminLogin, onPageChange }: AdminLoginPageProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [accessCode, setAccessCode] = useState('');
@@ -19,8 +20,7 @@ export function AdminLoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Mock admin authentication
-    adminLogin(email);
-    navigate('/admin-dashboard');
+    onAdminLogin(email);
   };
 
   return (
@@ -49,11 +49,11 @@ export function AdminLoginPage() {
             >
               <Shield className="h-10 w-10 text-white" />
             </motion.div>
-            <h1 className="text-3xl text-white dark:text-foreground mb-2">Admin Access</h1>
-            <p className="text-blue-200 dark:text-muted-foreground">Secure portal for administrators</p>
+            <h1 className="text-3xl text-white mb-2">Admin Access</h1>
+            <p className="text-blue-200">Secure portal for administrators</p>
           </div>
 
-          <Card className="p-8 shadow-2xl border border-border bg-white/10 dark:bg-card/80 backdrop-blur-md text-white dark:text-foreground">
+          <Card className="p-8 shadow-2xl border-0 bg-white/10 dark:bg-gray-800/80 backdrop-blur-md text-white dark:text-foreground">
             <form onSubmit={handleSubmit} className="space-y-6">
               <Alert className="bg-blue-900/50 dark:bg-blue-800/50 border-blue-400/50 dark:border-blue-500/50 text-blue-100 dark:text-blue-200">
                 <AlertCircle className="h-4 w-4" />
@@ -64,7 +64,7 @@ export function AdminLoginPage() {
 
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="admin-email" className="text-white dark:text-foreground">Email Address</Label>
+                  <Label htmlFor="admin-email" className="text-white">Email Address</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-300" />
                     <Input
@@ -73,14 +73,14 @@ export function AdminLoginPage() {
                       placeholder="admin@uniinone.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="pl-10 bg-white/10 dark:bg-input/30 border-white/20 dark:border-border text-white dark:text-foreground placeholder:text-gray-400 dark:placeholder:text-muted-foreground"
+                      className="pl-10 bg-white/10 dark:bg-gray-700/50 border-white/20 dark:border-gray-600/50 text-white dark:text-foreground placeholder:text-gray-400 dark:placeholder:text-gray-400"
                       required
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="admin-password" className="text-white dark:text-foreground">Password</Label>
+                  <Label htmlFor="admin-password" className="text-white">Password</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-300" />
                     <Input
@@ -89,14 +89,14 @@ export function AdminLoginPage() {
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="pl-10 bg-white/10 dark:bg-input/30 border-white/20 dark:border-border text-white dark:text-foreground placeholder:text-gray-400 dark:placeholder:text-muted-foreground"
+                      className="pl-10 bg-white/10 dark:bg-gray-700/50 border-white/20 dark:border-gray-600/50 text-white dark:text-foreground placeholder:text-gray-400 dark:placeholder:text-gray-400"
                       required
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="access-code" className="text-white dark:text-foreground">Access Code</Label>
+                  <Label htmlFor="access-code" className="text-white">Access Code</Label>
                   <div className="relative">
                     <Shield className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-300" />
                     <Input
@@ -105,7 +105,7 @@ export function AdminLoginPage() {
                       placeholder="XXXX-XXXX-XXXX"
                       value={accessCode}
                       onChange={(e) => setAccessCode(e.target.value)}
-                      className="pl-10 bg-white/10 dark:bg-input/30 border-white/20 dark:border-border text-white dark:text-foreground placeholder:text-gray-400 dark:placeholder:text-muted-foreground"
+                      className="pl-10 bg-white/10 dark:bg-gray-700/50 border-white/20 dark:border-gray-600/50 text-white dark:text-foreground placeholder:text-gray-400 dark:placeholder:text-gray-400"
                       required
                     />
                   </div>
@@ -123,8 +123,8 @@ export function AdminLoginPage() {
               <div className="text-center">
                 <button
                   type="button"
-                  onClick={() => navigate('/login')}
-                  className="text-sm text-blue-200 dark:text-muted-foreground hover:text-white dark:hover:text-foreground transition-colors"
+                  onClick={() => onPageChange('login')}
+                  className="text-sm text-blue-200 dark:text-blue-300 hover:text-white dark:hover:text-gray-100 transition-colors"
                 >
                   ← Back to Student Login
                 </button>
@@ -132,7 +132,7 @@ export function AdminLoginPage() {
             </form>
           </Card>
 
-          <p className="text-center text-blue-200 dark:text-muted-foreground text-sm mt-6">
+          <p className="text-center text-blue-200 dark:text-blue-300 text-sm mt-6">
             Protected by advanced security measures
           </p>
         </motion.div>

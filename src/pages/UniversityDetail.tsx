@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
-import { Button } from './ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Badge } from './ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { Button } from '../components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { 
   ArrowLeft, 
   MapPin, 
@@ -21,19 +20,31 @@ import {
   BookOpen,
   UserCheck
 } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-import { useUniversities } from '../context/UniversitiesContext';
+import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
-export function UniversityDetail() {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const { getUniversityById } = useUniversities();
-  const university = id ? getUniversityById(parseInt(id)) : undefined;
+interface University {
+  id: number;
+  name: string;
+  arabicName: string;
+  city: string;
+  type: 'Public' | 'Private';
+  founded: number;
+  students: string;
+  ranking: number;
+  image: string;
+  programs: string[];
+  tuitionRange: string;
+  rating: number;
+  description: string;
+}
+
+interface UniversityDetailProps {
+  university: University;
+  onBack: () => void;
+}
+
+export function UniversityDetail({ university, onBack }: UniversityDetailProps) {
   const [activeTab, setActiveTab] = useState('overview');
-
-  if (!university) {
-    return <Navigate to="/universities" replace />;
-  }
 
   const facilities = [
     'Modern Libraries', 'Research Labs', 'Sports Complex', 'Student Housing',
@@ -60,7 +71,7 @@ export function UniversityDetail() {
       {/* Back Button */}
       <Button 
         variant="outline" 
-        onClick={() => navigate('/universities')}
+        onClick={onBack}
         className="mb-6 flex items-center space-x-2"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -120,28 +131,28 @@ export function UniversityDetail() {
           <CardContent className="p-4 text-center">
             <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
             <div className="text-lg font-semibold">{university.students}</div>
-            <div className="text-sm text-gray-400">Students</div>
+            <div className="text-sm text-gray-600">Students</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <GraduationCap className="h-8 w-8 text-emerald-600 mx-auto mb-2" />
             <div className="text-lg font-semibold">{university.programs.length}+</div>
-            <div className="text-sm text-gray-400">Programs</div>
+            <div className="text-sm text-gray-600">Programs</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <Award className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
             <div className="text-lg font-semibold">#{university.ranking}</div>
-            <div className="text-sm text-gray-400">National Ranking</div>
+            <div className="text-sm text-gray-600">National Ranking</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <Calendar className="h-8 w-8 text-purple-600 mx-auto mb-2" />
             <div className="text-lg font-semibold">{new Date().getFullYear() - university.founded}+</div>
-            <div className="text-sm text-gray-400">Years of Excellence</div>
+            <div className="text-sm text-gray-600">Years of Excellence</div>
           </CardContent>
         </Card>
       </div>
@@ -163,7 +174,7 @@ export function UniversityDetail() {
               <CardTitle>About {university.name}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-white-700 leading-relaxed">
+              <p className="text-gray-700 leading-relaxed">
                 {university.description} Established in {university.founded}, this prestigious institution has been 
                 shaping the minds of Egypt's future leaders for over {new Date().getFullYear() - university.founded} years. 
                 With a diverse student body of {university.students} students and world-class faculty, 
@@ -228,7 +239,7 @@ export function UniversityDetail() {
             <CardContent>
               <div className="grid gap-4">
                 {programs.map((program, index) => (
-                  <div key={index} className="bg-white/10 border rounded-lg p-4 hover:bg-white/20 transition-colors">
+                  <div key={index} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-semibold text-lg">{program.name}</h4>
                       <Badge variant="outline">{program.duration}</Badge>
@@ -397,13 +408,11 @@ export function UniversityDetail() {
                     </ul>
                   </div>
                   
-                  <div className="rounded-lg p-2">
+                  <div className="bg-gray-100 rounded-lg p-4 flex items-center justify-center">
                     <div className="text-center text-gray-500">
-                      <iframe src={university.location}
-                      width="100%"
-                      height="300"
-                      className="rounded-md"
-                      loading="lazy"></iframe>
+                      <MapPin className="h-12 w-12 mx-auto mb-2" />
+                      <p>Interactive map would be displayed here</p>
+                      <p className="text-sm">showing campus location and nearby amenities</p>
                     </div>
                   </div>
                 </div>

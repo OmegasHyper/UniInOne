@@ -1573,6 +1573,10 @@
     background-color: var(--muted);
   }
 
+  .bg-muted-tab-bg {
+    background-color: var(--muted-tab-bg);
+  }
+
   .bg-muted\/50 {
     background-color: var(--muted);
   }
@@ -3313,16 +3317,6 @@
     }
   }
 
-  .dark\:bg-input\/30:is(.dark *) {
-    background-color: var(--input);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .dark\:bg-input\/30:is(.dark *) {
-      background-color: color-mix(in oklab, var(--input) 30%, transparent);
-    }
-  }
-
   .dark\:text-muted-foreground:is(.dark *) {
     color: var(--muted-foreground);
   }
@@ -3341,13 +3335,21 @@
 
   @media (hover: hover) {
     .dark\:hover\:bg-input\/50:is(.dark *):hover {
-      background-color: var(--input);
+      background-color: var(--input-hover);
+      cursor: pointer;
     }
 
     @supports (color: color-mix(in lab, red, red)) {
       .dark\:hover\:bg-input\/50:is(.dark *):hover {
-        background-color: color-mix(in oklab, var(--input) 50%, transparent);
+        background-color: color-mix(in oklab, var(--input-hover) 50%, transparent);
       }
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:bg-input\/50:hover {
+      background-color: var(--input-hover);
+      cursor: pointer;
     }
   }
 
@@ -3376,12 +3378,12 @@
   }
 
   .dark\:data-\[state\=active\]\:bg-input\/30:is(.dark *)[data-state="active"] {
-    background-color: var(--input);
+    background-color: var(--muted-tab-bg);
   }
 
   @supports (color: color-mix(in lab, red, red)) {
     .dark\:data-\[state\=active\]\:bg-input\/30:is(.dark *)[data-state="active"] {
-      background-color: color-mix(in oklab, var(--input) 30%, transparent);
+      background-color: color-mix(in oklab, var(--muted-tab-bg) 50%, transparent);
     }
   }
 
@@ -3551,6 +3553,7 @@
   --destructive-foreground: #fff;
   --border: #0000001a;
   --input: transparent;
+  --input-hover: #030213;
   --input-background: #f3f3f5;
   --switch-background: #cbced4;
   --font-weight-medium: 500;
@@ -3585,6 +3588,7 @@
   --secondary-foreground: oklch(.985 0 0);
   --muted: oklch(.269 0 0);
   --muted-foreground: oklch(.708 0 0);
+  /* --muted-tab-bg: #ffffff; */
   --accent: oklch(.269 0 0);
   --accent-foreground: oklch(.985 0 0);
   --destructive: oklch(.396 .141 25.723);

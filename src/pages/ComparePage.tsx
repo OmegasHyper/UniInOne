@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Button } from './ui/button';
-import { Card } from './ui/card';
-import { Badge } from './ui/badge';
+import { Button } from '../components/ui/button';
+import { Card } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
+} from '../components/ui/select';
 import {
   GraduationCap,
   Users,
@@ -20,7 +20,6 @@ import {
   X,
   Plus,
   Check,
-  Building2,
 } from 'lucide-react';
 
 interface University {
@@ -106,7 +105,7 @@ export function ComparePage() {
   };
 
   const availableUniversities = universities.filter(
-    (uni) => !selectedUniversities.some((selected: University | null) => selected?.id === uni.id)
+    (uni) => !selectedUniversities.some((selected) => selected?.id === uni.id)
   );
 
   const ComparisonMetric = ({
@@ -118,15 +117,15 @@ export function ComparePage() {
     label: string;
     values: (string | number)[];
   }) => (
-    <div className="border-b border-border last:border-b-0 py-4">
-      <div className="flex items-center gap-2 mb-3 text-muted-foreground">
+    <div className="border-b last:border-b-0 py-4">
+      <div className="flex items-center gap-2 mb-3 text-gray-600">
         <Icon className="h-5 w-5" />
         <span>{label}</span>
       </div>
       <div className="grid grid-cols-2 gap-4">
         {values.map((value, index) => (
           <div key={index} className="text-center">
-            <p className="text-foreground">{value || '-'}</p>
+            <p className="text-gray-900">{value || '-'}</p>
           </div>
         ))}
       </div>
@@ -134,12 +133,24 @@ export function ComparePage() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground mb-2">Compare Universities</h1>
-        <p className="text-muted-foreground">Compare two universities side by side to make the best decision for your future</p>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-900 to-emerald-600 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl text-white mb-4">Compare Universities</h1>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+              Compare two universities side by side to make the best decision for your future
+            </p>
+          </motion.div>
+        </div>
       </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* University Selection */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -147,10 +158,10 @@ export function ComparePage() {
           transition={{ delay: 0.2 }}
           className="grid md:grid-cols-2 gap-6 mb-12"
         >
-          {selectedUniversities.map((university: University | null, index: number) => (
+          {selectedUniversities.map((university, index) => (
             <Card
               key={index}
-              className="p-6 shadow-sm border border-border bg-card dark:bg-gray-800/50"
+              className="p-6 shadow-lg border-0 bg-white/80 backdrop-blur-sm"
             >
               {university ? (
                 <div>
@@ -160,16 +171,16 @@ export function ComparePage() {
                         <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-900 to-emerald-600 flex items-center justify-center">
                           <GraduationCap className="h-5 w-5 text-white" />
                         </div>
-                        <Badge className="bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700">
+                        <Badge className="bg-emerald-100 text-emerald-800 border-emerald-200">
                           #{university.ranking}
                         </Badge>
                       </div>
-                      <h3 className="text-lg text-foreground mb-1">{university.name}</h3>
+                      <h3 className="text-lg text-gray-900 mb-1">{university.name}</h3>
                       <div className="flex items-center gap-1 mb-2">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm text-muted-foreground">{university.rating}</span>
+                        <span className="text-sm text-gray-600">{university.rating}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2 text-sm text-gray-500">
                         <MapPin className="h-4 w-4" />
                         {university.city}
                       </div>
@@ -178,7 +189,7 @@ export function ComparePage() {
                       variant="ghost"
                       size="sm"
                       onClick={() => handleRemoveUniversity(index)}
-                      className="text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20"
+                      className="text-red-500 hover:text-red-600 hover:bg-red-50"
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -186,12 +197,12 @@ export function ComparePage() {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <div className="w-16 h-16 rounded-full border-2 border-dashed border-border flex items-center justify-center mx-auto mb-4">
-                    <Plus className="h-8 w-8 text-muted-foreground" />
+                  <div className="w-16 h-16 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center mx-auto mb-4">
+                    <Plus className="h-8 w-8 text-gray-400" />
                   </div>
-                  <p className="text-muted-foreground mb-4">Select a university</p>
+                  <p className="text-gray-500 mb-4">Select a university</p>
                   <Select
-                    onValueChange={(value: string) => {
+                    onValueChange={(value) => {
                       const uni = universities.find((u) => u.id.toString() === value);
                       if (uni) handleSelectUniversity(uni, index);
                     }}
@@ -214,65 +225,65 @@ export function ComparePage() {
         </motion.div>
 
         {/* Comparison Table */}
-        {selectedUniversities.some((uni: University | null) => uni !== null) && (
+        {selectedUniversities.some((uni) => uni !== null) && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <Card className="p-8 shadow-sm border border-border bg-card dark:bg-gray-800/50">
-              <h2 className="text-2xl text-foreground mb-6">Detailed Comparison</h2>
+            <Card className="p-8 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+              <h2 className="text-2xl text-gray-900 mb-6">Detailed Comparison</h2>
 
               <div className="space-y-0">
                 <ComparisonMetric
                   icon={Building2}
                   label="Type"
-                  values={selectedUniversities.map((uni: University | null) => uni?.type || '')}
+                  values={selectedUniversities.map((uni) => uni?.type || '')}
                 />
                 <ComparisonMetric
                   icon={Calendar}
                   label="Founded"
-                  values={selectedUniversities.map((uni: University | null) => uni?.founded || '')}
+                  values={selectedUniversities.map((uni) => uni?.founded || '')}
                 />
                 <ComparisonMetric
                   icon={Users}
                   label="Student Body"
-                  values={selectedUniversities.map((uni: University | null) => uni?.students || '')}
+                  values={selectedUniversities.map((uni) => uni?.students || '')}
                 />
                 <ComparisonMetric
                   icon={DollarSign}
                   label="Tuition Range"
-                  values={selectedUniversities.map((uni: University | null) => uni?.tuitionRange || '')}
+                  values={selectedUniversities.map((uni) => uni?.tuitionRange || '')}
                 />
                 <ComparisonMetric
                   icon={Star}
                   label="Rating"
-                  values={selectedUniversities.map((uni: University | null) =>
+                  values={selectedUniversities.map((uni) =>
                     uni ? `${uni.rating}/5.0` : ''
                   )}
                 />
               </div>
 
               {/* Programs Comparison */}
-              <div className="mt-8 pt-8 border-t border-border">
-                <h3 className="text-lg text-foreground mb-4">Popular Programs</h3>
+              <div className="mt-8 pt-8 border-t">
+                <h3 className="text-lg text-gray-900 mb-4">Popular Programs</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  {selectedUniversities.map((uni: University | null, index: number) => (
+                  {selectedUniversities.map((uni, index) => (
                     <div key={index}>
                       {uni ? (
                         <div className="space-y-2">
-                          {uni.programs.slice(0, 4).map((program: string, pIndex: number) => (
+                          {uni.programs.slice(0, 4).map((program, pIndex) => (
                             <div
                               key={pIndex}
-                              className="flex items-center gap-2 text-sm text-foreground"
+                              className="flex items-center gap-2 text-sm text-gray-700"
                             >
-                              <Check className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                              <Check className="h-4 w-4 text-emerald-600" />
                               {program}
                             </div>
                           ))}
                         </div>
                       ) : (
-                        <p className="text-muted-foreground text-sm">-</p>
+                        <p className="text-gray-400 text-sm">-</p>
                       )}
                     </div>
                   ))}
@@ -283,22 +294,24 @@ export function ComparePage() {
         )}
 
         {/* Empty State */}
-        {!selectedUniversities.some((uni: University | null) => uni !== null) && (
+        {!selectedUniversities.some((uni) => uni !== null) && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <Card className="p-12 text-center shadow-sm border border-border bg-card dark:bg-gray-800/50">
-              <GraduationCap className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl text-foreground mb-2">No Universities Selected</h3>
-              <p className="text-muted-foreground">
+            <Card className="p-12 text-center shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+              <GraduationCap className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-xl text-gray-900 mb-2">No Universities Selected</h3>
+              <p className="text-gray-600">
                 Select universities from the dropdowns above to start comparing
               </p>
             </Card>
           </motion.div>
         )}
+      </div>
     </div>
   );
 }
 
+const Building2 = MapPin; // Using MapPin as substitute
