@@ -135,13 +135,13 @@ export function Footer() {
                 </Button>
               </div>
               {error && (
-                <div className="mt-3 flex items-center justify-center gap-2 text-red-200 text-sm animate-in fade-in slide-in-from-top-2 duration-300">
+                <div className="mt-6 flex items-center justify-center gap-2 text-red-200 text-sm animate-in fade-in slide-in-from-top-2 duration-300">
                   <AlertCircle className="h-4 w-4" />
                   <span>{error}</span>
                 </div>
               )}
               {showSuccess && (
-                <div className="mt-3 flex items-center justify-center gap-2 text-white text-sm animate-in fade-in slide-in-from-top-2 duration-300">
+                <div className="mt-6 flex items-center justify-center gap-2 text-white text-sm animate-in fade-in slide-in-from-top-2 duration-300">
                   <CheckCircle className="h-4 w-4 text-green-300" />
                   <span>Successfully subscribed! Thank you.</span>
                 </div>

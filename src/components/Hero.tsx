@@ -108,7 +108,7 @@ export function Hero() {
               size="lg"
               variant="outline"
               onClick={() => navigate('/faculties')}
-              className="border-emerald-600 dark:border-emerald-400 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 group"
+              className="border-emerald-600 dark:border-emerald-400 text-emerald-700 hover:text-emerald-400 hover:bg-emerald-50 group"
             >
               Browse Majors
               <GraduationCap className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform" />

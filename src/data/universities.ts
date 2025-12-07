@@ -118,3 +118,6 @@ export function getUniversityById(id: number): University | undefined {
   return universities.find(uni => uni.id === id);
 }
 
+export function getUniversityByName(name: string): University | undefined {
+  return universities.find(uni => uni.name.toLowerCase() === name.toLowerCase());
+}

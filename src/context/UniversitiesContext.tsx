@@ -20,7 +20,6 @@ export function UniversitiesProvider({ children }: { children: ReactNode }) {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        console.log(universities)
         return parsed.length > 0 ? parsed : initialUniversities;
       }
     } catch (error) {

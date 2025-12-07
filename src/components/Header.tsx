@@ -54,7 +54,7 @@ export function Header() {
                 className={`px-3 py-2 rounded-md transition-colors ${
                   location.pathname === item.path
                     ? 'text-blue-900 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-900 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 hover:bg-accent'
                 }`}
               >
                 {item.label}

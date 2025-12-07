@@ -18,6 +18,8 @@ import {
   Shield,
 } from 'lucide-react';
 import { getFacultyById } from '../data/faculties';
+import { getUniversityByName } from '../data/universities';
+import { toast } from 'sonner';
 
 export function FacultyDetail() {
   const { id } = useParams<{ id: string }>();
@@ -192,7 +194,7 @@ export function FacultyDetail() {
                 {faculty.departments.map((dept, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-2 p-3 bg-blue-50 dark:bg-gray-700/50 rounded-lg border border-blue-200 dark:border-gray-600 hover:bg-blue-100 dark:hover:bg-gray-600/50 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md transition-all duration-300 cursor-pointer group"
+                    className="flex items-center gap-2 p-1 bg-blue-50 dark:bg-gray-700/50 rounded-lg border border-blue-200 dark:border-gray-600 hover:bg-blue-100 dark:hover:bg-gray-600/50 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md transition-all duration-300 cursor-default group"
                   >
                     <CheckCircle2 className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors" />
                     <span className="text-gray-900 dark:text-gray-100 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">{dept}</span>
@@ -213,15 +215,27 @@ export function FacultyDetail() {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {faculty.universities.map((uni, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-3 p-4 bg-emerald-50 dark:bg-gray-800/70 rounded-lg border border-emerald-200 dark:border-gray-700 hover:bg-emerald-100 dark:hover:bg-gray-700/70 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition-all duration-300 cursor-pointer group"
-                  >
-                    <div className="w-2.5 h-2.5 bg-emerald-600 dark:bg-emerald-400 rounded-full group-hover:scale-125 transition-transform"></div>
-                    <span className="text-gray-900 dark:text-gray-100 font-medium group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition-colors">{uni}</span>
-                  </div>
-                ))}
+                {faculty.universities.map((uni, index) => {
+                  const handleUniversityClick = () => {
+                    const university = getUniversityByName(uni);
+                    if (!university) {
+                      toast.error('University not found');
+                      return;
+                    }
+                    navigate(`/universities/${university.id}`);
+                  };
+
+                  return (
+                    <div
+                      key={index}
+                      onClick={handleUniversityClick}
+                      className="flex items-center gap-2 p-4 mb-2 bg-emerald-50 dark:bg-gray-800/70 rounded-lg border border-emerald-200 dark:border-gray-700 hover:bg-emerald-100 dark:hover:bg-gray-700/70 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition-all duration-300 cursor-pointer group"
+                    >
+                      <div className="w-2.5 h-2.5 bg-emerald-600 dark:bg-emerald-400 rounded-full group-hover:scale-125 transition-transform"></div>
+                      <span className="text-gray-900 dark:text-gray-100 font-medium group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition-colors">{uni}</span>
+                    </div>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
@@ -240,7 +254,7 @@ export function FacultyDetail() {
                 {faculty.careerProspects.map((career, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 p-4 bg-emerald-50 dark:bg-gray-800/70 rounded-lg border border-emerald-200 dark:border-gray-700 hover:bg-emerald-100 dark:hover:bg-gray-700/70 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition-all duration-300 cursor-pointer group"
+                    className="flex items-center gap-3 p-4 bg-emerald-50 dark:bg-gray-800/70 rounded-lg border border-emerald-200 dark:border-gray-700 hover:bg-emerald-100 dark:hover:bg-gray-700/70 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition-all duration-300 cursor-default group"
                   >
                     <Award className="h-5 w-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition-colors group-hover:scale-110" />
                     <span className="text-gray-900 dark:text-gray-100 font-medium group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition-colors">{career}</span>

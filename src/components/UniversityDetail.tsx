@@ -233,7 +233,7 @@ export function UniversityDetail() {
                       <h4 className="font-semibold text-lg">{program.name}</h4>
                       <Badge variant="outline">{program.duration}</Badge>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                       <div className="flex items-center space-x-2">
                         <DollarSign className="h-4 w-4" />
                         <span>{program.tuition}</span>
@@ -262,9 +262,9 @@ export function UniversityDetail() {
             <CardContent>
               <div className="space-y-4">
                 {admissionRequirements.map((req, index) => (
-                  <div key={index} className="border-l-4 border-blue-500 pl-4">
-                    <h4 className="font-semibold text-blue-900">{req.level} Programs</h4>
-                    <p className="text-gray-700">{req.requirement}</p>
+                  <div key={index} className="border-l-4 border-blue-100 pl-4">
+                    <h4 className="font-semibold text-blue-600">{req.level} Programs</h4>
+                    <p>{req.requirement}</p>
                   </div>
                 ))}
               </div>
@@ -272,10 +272,10 @@ export function UniversityDetail() {
               <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                 <h4 className="font-semibold text-blue-900 mb-2">Application Timeline</h4>
                 <div className="grid md:grid-cols-2 gap-4 text-sm">
-                  <div>
+                  <div className="text-blue-900 mb-2">
                     <strong>Fall Semester:</strong> Applications due March 31st
                   </div>
-                  <div>
+                  <div className="text-blue-900 mb-2">
                     <strong>Spring Semester:</strong> Applications due October 31st
                   </div>
                 </div>
@@ -338,7 +338,7 @@ export function UniversityDetail() {
                 {facilities.map((facility, index) => (
                   <div key={index} className="text-center p-4 border rounded-lg hover:bg-gray-50 transition-colors">
                     <Building className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                    <p className="text-sm font-medium">{facility}</p>
+                    <p className="text-sm font-medium text-blue-600">{facility}</p>
                   </div>
                 ))}
               </div>
@@ -382,7 +382,7 @@ export function UniversityDetail() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-semibold mb-3">Address</h4>
-                    <p className="text-gray-700 mb-4">
+                    <p className="text-gray-500 mb-4">
                       Main Campus<br />
                       {university.city}, Egypt<br />
                       Postal Code: 12345
@@ -410,7 +410,7 @@ export function UniversityDetail() {
                 
                 <div className="p-4 bg-blue-50 rounded-lg">
                   <h4 className="font-semibold text-blue-900 mb-2">Nearby Amenities</h4>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-md text-gray-800 ml-2">
                     <span>• Shopping Centers</span>
                     <span>• Restaurants</span>
                     <span>• Banks</span>

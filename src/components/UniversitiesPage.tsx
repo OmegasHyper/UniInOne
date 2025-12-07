@@ -196,14 +196,14 @@ export function UniversitiesPage() {
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-foreground">Popular Programs:</p>
                   <div className="flex flex-wrap gap-1">
-                    {university.programs.slice(0, 3).map((program, index) => (
+                    {university.programs.slice(0, 2).map((program, index) => (
                       <Badge key={index} variant="outline" className="text-xs">
                         {program}
                       </Badge>
                     ))}
-                    {university.programs.length > 3 && (
+                    {university.programs.length > 2 && (
                       <Badge variant="outline" className="text-xs">
-                        +{university.programs.length - 3} more
+                        +{university.programs.length - 2} more
                       </Badge>
                     )}
                   </div>
